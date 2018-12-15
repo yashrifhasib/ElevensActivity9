@@ -81,8 +81,8 @@ public class ElevensBoard extends Board {
             for ( int j = i + 1; j < this.BOARD_SIZE - 1; j++ ) {
                 for ( int k = j + 1; k < this.BOARD_SIZE; k++ ) {
                     List<Integer> selectedCards = new ArrayList<Integer>();
-                    selectedCards.add(i); selectedCards.add(j); selectedCards.add(k);
-                    if (containsJQK(selectedCards))
+                    selectedCards.add( i ); selectedCards.add( j ); selectedCards.add( k );
+                    if ( containsJQK( selectedCards ) )
                         return true;
                 }
             }
@@ -99,13 +99,12 @@ public class ElevensBoard extends Board {
      * @return true if the board entries in selectedCards
      *              contain an 11-pair; false otherwise.
      */
-    private boolean containsPairSum11(List<Integer> selectedCards) {
+    private boolean containsPairSum11( List<Integer> selectedCards ) {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
         int sum = 0;
-        for ( int i = 0; i < selectedCards.size(); i++ ) {
-            sum += cardAt( selectedCards.get( i ) ).pointValue();
-        }
-        return sum == 11 & selectedCards.size() == 3;
+        for ( int i : selectedCards )
+            sum += cardAt( i ).pointValue();
+        return ( sum == 11 & selectedCards.size() == 2 );
     }
 
     /**
@@ -116,12 +115,11 @@ public class ElevensBoard extends Board {
      * @return true if the board entries in selectedCards
      *              include a jack, a queen, and a king; false otherwise.
      */
-    private boolean containsJQK(List<Integer> selectedCards) {
+    private boolean containsJQK( List<Integer> selectedCards ) {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
         int sum = 0;
-        for ( int i = 0; i < selectedCards.size(); i++ ) {
-            sum += cardAt( selectedCards.get( i ) ).pointValue();
-        }
-        return sum == 0 && selectedCards.size() == 3;
+        for ( int i : selectedCards )
+            sum += cardAt( i ).pointValue();
+        return ( sum == 0 && selectedCards.size() == 3 );
     }
 }
