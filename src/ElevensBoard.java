@@ -117,9 +117,23 @@ public class ElevensBoard extends Board {
      */
     private boolean containsJQK( List<Integer> selectedCards ) {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+        int[] jqkCount = {0, 0, 0};
         int sum = 0;
-        for ( int i : selectedCards )
-            sum += cardAt( i ).pointValue();
-        return ( sum == 0 && selectedCards.size() == 3 );
+        for ( int i : selectedCards ) {
+            if ( cardAt( i ).rank().equals( "jack" ) ) {
+                jqkCount[ 0 ]++;
+                sum += cardAt( i ).pointValue();
+            }
+            if ( cardAt( i ).rank().equals( "queen" ) ) {
+                jqkCount[ 1 ]++;
+                sum += cardAt( i ).pointValue();
+            }
+            if ( cardAt( i ).rank().equals( "king" ) ) {
+                jqkCount[ 2 ]++;
+                sum += cardAt( i ).pointValue();
+            }
+        }
+
+        return ( sum == 0 && jqkCount[ 0 ] == 1 && jqkCount[ 1 ] == 1 && jqkCount[ 2 ] == 1 );
     }
 }
