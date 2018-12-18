@@ -120,16 +120,16 @@ public class ElevensBoard extends Board {
         int[] jqkCount = {0, 0, 0};
         int sum = 0;
         for ( int i : selectedCards ) {
-            if ( cardAt( i ).rank().equals( "jack" ) ) {
-                jqkCount[ 0 ]++;
+            if ( cardAt( i ).rank().equals( this.RANKS[ this.RANKS.length - 1 ] ) ) {
+                jqkCount[ 2 ]++;
                 sum += cardAt( i ).pointValue();
             }
-            if ( cardAt( i ).rank().equals( "queen" ) ) {
+            if ( cardAt( i ).rank().equals( this.RANKS[ this.RANKS.length - 2 ] ) ) {
                 jqkCount[ 1 ]++;
                 sum += cardAt( i ).pointValue();
             }
-            if ( cardAt( i ).rank().equals( "king" ) ) {
-                jqkCount[ 2 ]++;
+            if ( cardAt( i ).rank().equals( this.RANKS[ this.RANKS.length - 3 ] ) ) {
+                jqkCount[ 0 ]++;
                 sum += cardAt( i ).pointValue();
             }
         }
