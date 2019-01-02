@@ -4,12 +4,12 @@ import java.util.ArrayList;
 /**
  * The ElevensBoard class represents the board in a game of Elevens.
  */
-public class ThirteensBoard extends Board {
+public class TensBoard extends Board {
 
     /**
      * The size (number of cards) on the board.
      */
-    private static final int BOARD_SIZE = 10;
+    private static final int BOARD_SIZE = 13;
 
     /**
      * The ranks of the cards for this game to be sent to the deck.
@@ -27,7 +27,7 @@ public class ThirteensBoard extends Board {
      * The values of the cards for this game to be sent to the deck.
      */
     private static final int[] POINT_VALUES =
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0};
+            {1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0};
 
     /**
      * Flag used to control debugging print statements.
@@ -38,7 +38,7 @@ public class ThirteensBoard extends Board {
     /**
      * Creates a new <code>ElevensBoard</code> instance.
      */
-    public ThirteensBoard() {
+    public TensBoard() {
         super(BOARD_SIZE, RANKS, SUITS, POINT_VALUES);
     }
 
@@ -54,7 +54,7 @@ public class ThirteensBoard extends Board {
     @Override
     public boolean isLegal(List<Integer> selectedCards) {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-        return ( containsPairSum13( selectedCards ) && selectedCards.size() == 2 ) || ( containsKing( selectedCards ) && selectedCards.size() == 1 );
+        return ( containsPairSum10( selectedCards ) && selectedCards.size() == 2 ) || ( containsJQKTen( selectedCards ) && selectedCards.size() == 4 );
     }
 
     /**
@@ -69,7 +69,7 @@ public class ThirteensBoard extends Board {
     public boolean anotherPlayIsPossible() {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
         List<Integer> selectedCards = cardIndexes();
-        return containsPairSum13( selectedCards ) || containsKing( selectedCards );
+        return containsPairSum10( selectedCards ) || containsJQKTen( selectedCards );
     }
 
     /**
@@ -80,11 +80,11 @@ public class ThirteensBoard extends Board {
      * @return true if the board entries in selectedCards
      *              contain an 11-pair; false otherwise.
      */
-    private boolean containsPairSum13( List<Integer> selectedCards ) {
+    private boolean containsPairSum10( List<Integer> selectedCards ) {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
         for ( int i = 0; i < selectedCards.size() - 1; i++ ) {
             for ( int j = i + 1; j < selectedCards.size(); j ++ ) {
-                if ( cardAt( selectedCards.get( i ) ).pointValue() + cardAt( selectedCards.get( j ) ).pointValue() == 13 )
+                if ( cardAt( selectedCards.get( i ) ).pointValue() + cardAt( selectedCards.get( j ) ).pointValue() == 10 )
                     return true;
             }
         }
@@ -99,11 +99,21 @@ public class ThirteensBoard extends Board {
      * @return true if the board entries in selectedCards
      *              include a jack, a queen, and a king; false otherwise.
      */
-    private boolean containsKing( List<Integer> selectedCards ) {
+    private boolean containsJQKTen( List<Integer> selectedCards ) {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-        for ( Integer i : selectedCards )
-            if ( cardAt( i ).pointValue() == 0 )
+        String[] names = {"10", "jack", "queen", "king"};
+        int counter = 0;
+        for ( String j : names ) {
+            counter = 0;
+            for ( Integer i : selectedCards ) {
+                if ( cardAt(i).pointValue() == 0 && cardAt(i).rank().equals(j) ) {
+                    counter++;
+                }
+            }
+            if ( counter == 4 )
                 return true;
+        }
+
         return false;
     }
 }
